@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class GradientsThemeData {
-  final LinearGradient backgroundGradient;
-  final LinearGradient numberButtonBackground;
+  final Gradient backgroundGradient;
+  final Gradient numberButtonBackground;
+  final Gradient operationButton;
   const GradientsThemeData._({
     required this.backgroundGradient,
     required this.numberButtonBackground,
+    required this.operationButton,
   });
 
   factory GradientsThemeData.light() {
@@ -26,6 +28,15 @@ class GradientsThemeData {
         ],
         end: Alignment.bottomRight,
         begin: Alignment.topLeft,
+      ),
+      operationButton: LinearGradient(
+        begin: Alignment.bottomRight,
+        end: Alignment.topLeft,
+        colors: [
+          Color(0xFFADD8FF),
+          Color.fromRGBO(173, 216, 255, 0.28),
+        ],
+        stops: [0.0899, 1.1142],
       ),
     );
   }
@@ -48,6 +59,12 @@ class GradientsThemeData {
         ],
         end: Alignment.bottomRight,
         begin: Alignment.topLeft,
+      ),
+      operationButton: RadialGradient(
+        colors: [
+          Color(0xE6ADD8FF),
+          Color.fromRGBO(173, 216, 255, .28),
+        ],
       ),
     );
   }

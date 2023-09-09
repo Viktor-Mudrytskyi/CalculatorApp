@@ -22,10 +22,10 @@ class CalculatorScreen extends StatelessWidget {
           ),
           child: Center(
             child: Bounceable(
-              child: NumberButton(
+              child: OperationButton(
                 onTap: (value) {},
-                value: 1,
-                side: 60,
+                value: '/',
+                size: const Size(90, 90),
               ),
             ),
           ),

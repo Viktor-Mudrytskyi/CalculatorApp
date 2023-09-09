@@ -29,7 +29,6 @@ class _NumberButtonState extends State<Bounceable>
 
   void _handlePointerMove(PointerMoveEvent event) {
     final localOffset = event.localPosition;
-    print(localOffset);
     if (localOffset.dx > childsSize.width ||
         localOffset.dy > childsSize.height ||
         localOffset.dx < 0 ||
