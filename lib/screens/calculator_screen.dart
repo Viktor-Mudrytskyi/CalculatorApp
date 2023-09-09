@@ -20,18 +20,13 @@ class CalculatorScreen extends StatelessWidget {
             systemPadding.right,
             systemPadding.bottom,
           ),
-          child: SizedBox.expand(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: MediaQuery.sizeOf(context).height * .3,
-                ),
-                Expanded(
-                  child: Container(
-                    color: Colors.amber,
-                  ),
-                )
-              ],
+          child: Center(
+            child: Bounceable(
+              child: NumberButton(
+                onTap: (value) {},
+                value: 1,
+                side: 60,
+              ),
             ),
           ),
         ),
