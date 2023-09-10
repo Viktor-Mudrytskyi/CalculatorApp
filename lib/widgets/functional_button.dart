@@ -3,24 +3,22 @@ import 'package:flutter/material.dart';
 
 import '../theme/theme.dart';
 
-class NumberButton extends StatelessWidget {
-  const NumberButton({
+class FunctionalButton extends StatelessWidget {
+  const FunctionalButton({
     super.key,
     required this.size,
-    required this.value,
     required this.onTap,
+    required this.child,
   });
   final Size size;
-  final String value;
-  final void Function(String value) onTap;
+  final Widget child;
+  final void Function() onTap;
   @override
   Widget build(BuildContext context) {
     final tempTheme = AppThemeData.light();
     return Bounceable(
       child: GestureDetector(
-        onTap: () {
-          onTap(value);
-        },
+        onTap: onTap,
         child: Container(
           height: size.height,
           width: size.width,
@@ -33,12 +31,7 @@ class NumberButton extends StatelessWidget {
             ),
           ),
           child: Center(
-            child: Text(
-              value,
-              style: tempTheme.textStyles.number.copyWith(
-                color: tempTheme.colors.number,
-              ),
-            ),
+            child: child,
           ),
         ),
       ),

@@ -4,10 +4,12 @@ class GradientsThemeData {
   final Gradient backgroundGradient;
   final Gradient numberButtonBackground;
   final Gradient operationButton;
+  final Gradient equalsButton;
   const GradientsThemeData._({
     required this.backgroundGradient,
     required this.numberButtonBackground,
     required this.operationButton,
+    required this.equalsButton,
   });
 
   factory GradientsThemeData.light() {
@@ -34,6 +36,15 @@ class GradientsThemeData {
         end: Alignment.topLeft,
         colors: [
           Color(0xFFADD8FF),
+          Color.fromRGBO(173, 216, 255, 0.28),
+        ],
+        stops: [0.0899, 1.1142],
+      ),
+      equalsButton: LinearGradient(
+        begin: Alignment.bottomRight,
+        end: Alignment.topLeft,
+        colors: [
+          Color(0xFF19ACFF),
           Color.fromRGBO(173, 216, 255, 0.28),
         ],
         stops: [0.0899, 1.1142],
@@ -65,6 +76,15 @@ class GradientsThemeData {
           Color(0xE6ADD8FF),
           Color.fromRGBO(173, 216, 255, .28),
         ],
+      ),
+      equalsButton: LinearGradient(
+        begin: Alignment.bottomRight,
+        end: Alignment.topLeft,
+        colors: [
+          Color(0xFF19ACFF),
+          Color.fromRGBO(173, 216, 255, 0.28),
+        ],
+        stops: [0.0899, 1.1142],
       ),
     );
   }

@@ -8,24 +8,49 @@ class CalculatorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final systemPadding = MediaQuery.paddingOf(context);
+    final tempTheme = AppThemeData.light();
     return Scaffold(
       body: DecoratedBox(
         decoration: BoxDecoration(
           gradient: AppThemeData.light().gradients.backgroundGradient,
         ),
         child: Padding(
-          padding: EdgeInsets.fromLTRB(
-            systemPadding.left,
-            systemPadding.top,
-            systemPadding.right,
-            systemPadding.bottom,
-          ),
-          child: Center(
-            child: Bounceable(
-              child: OperationButton(
-                onTap: (value) {},
-                value: '/',
-                size: const Size(90, 90),
+          padding: systemPadding,
+          child: SizedBox.expand(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.sizeOf(context).height * .3,
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const CalculatorLine(
+                            line: '12/4+5',
+                            highlightSymbols: [
+                              '/',
+                              '+',
+                              '-',
+                              '%',
+                              '*',
+                            ],
+                          ),
+                          Text(
+                            '=100',
+                            style: tempTheme.textStyles.result
+                                .copyWith(color: tempTheme.colors.result),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  const Expanded(
+                    child: CalculatorBody(),
+                  ),
+                ],
               ),
             ),
           ),
