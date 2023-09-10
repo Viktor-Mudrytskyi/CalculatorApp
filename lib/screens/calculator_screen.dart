@@ -22,7 +22,7 @@ class CalculatorScreen extends StatelessWidget {
               child: Column(
                 children: [
                   SizedBox(
-                    height: MediaQuery.sizeOf(context).height * .3,
+                    height: MediaQuery.sizeOf(context).height * .35,
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: Column(

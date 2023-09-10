@@ -38,148 +38,150 @@ class CalculatorBody extends StatelessWidget {
                 belowNumbersGap +
                 2 * horizontalGap);
 
-        return Stack(
-          children: [
-            Column(
-              children: [
-                Wrap(
-                  spacing: horizontalGap,
-                  children: [
-                    FunctionalButton(
-                      size: standSize,
-                      onTap: () {},
-                      child: Icon(
-                        Icons.backspace_outlined,
-                        size: 27,
-                        color: tempTheme.colors.operation,
+        return Center(
+          child: Stack(
+            children: [
+              Column(
+                children: [
+                  Wrap(
+                    spacing: horizontalGap,
+                    children: [
+                      FunctionalButton(
+                        size: standSize,
+                        onTap: () {},
+                        child: Icon(
+                          Icons.backspace_outlined,
+                          size: 27,
+                          color: tempTheme.colors.operation,
+                        ),
                       ),
-                    ),
-                    OperationButton(
-                      size: standSize,
-                      value: '%',
-                      onTap: (value) {},
-                    ),
-                    OperationButton(
-                      size: standSize,
-                      value: '/',
-                      onTap: (value) {},
-                    ),
-                    OperationButton(
-                      size: standSize,
-                      value: '*',
-                      onTap: (value) {},
-                    ),
-                  ],
-                ),
-                SizedBox(height: aboveNumbersGap),
-                Wrap(
-                  spacing: horizontalGap,
-                  children: [
-                    NumberButton(
-                      size: standSize,
-                      value: '7',
-                      onTap: (value) {},
-                    ),
-                    NumberButton(
-                      size: standSize,
-                      value: '8',
-                      onTap: (value) {},
-                    ),
-                    NumberButton(
-                      size: standSize,
-                      value: '9',
-                      onTap: (value) {},
-                    ),
-                    OperationButton(
-                      size: standSize,
-                      value: '-',
-                      onTap: (value) {},
-                    ),
-                  ],
-                ),
-                SizedBox(height: horizontalGap),
-                Wrap(
-                  spacing: horizontalGap,
-                  children: [
-                    NumberButton(
-                      size: standSize,
-                      value: '4',
-                      onTap: (value) {},
-                    ),
-                    NumberButton(
-                      size: standSize,
-                      value: '5',
-                      onTap: (value) {},
-                    ),
-                    NumberButton(
-                      size: standSize,
-                      value: '6',
-                      onTap: (value) {},
-                    ),
-                    SizedBox.fromSize(size: standSize),
-                  ],
-                ),
-                SizedBox(height: horizontalGap),
-                Wrap(
-                  spacing: horizontalGap,
-                  children: [
-                    NumberButton(
-                      size: standSize,
-                      value: '1',
-                      onTap: (value) {},
-                    ),
-                    NumberButton(
-                      size: standSize,
-                      value: '2',
-                      onTap: (value) {},
-                    ),
-                    NumberButton(
-                      size: standSize,
-                      value: '3',
-                      onTap: (value) {},
-                    ),
-                    SizedBox.fromSize(size: standSize),
-                  ],
-                ),
-                SizedBox(height: belowNumbersGap),
-                Wrap(
-                  spacing: horizontalGap,
-                  children: [
-                    NumberButton(
-                      size: Size(zeroButtonWidth, finalButtonHeight),
-                      value: '0',
-                      onTap: (value) {},
-                    ),
-                    NumberButton(
-                      size: standSize,
-                      value: '.',
-                      onTap: (value) {},
-                    ),
-                    SizedBox.fromSize(size: standSize),
-                  ],
-                ),
-              ],
-            ),
-            Positioned(
-              right: 0,
-              top: plusButtonTopOffset,
-              child: OperationButton(
-                value: '+',
-                onTap: (value) {},
-                size: Size(finalButtonHeight, plusButtonHeight),
+                      OperationButton(
+                        size: standSize,
+                        value: '%',
+                        onTap: (value) {},
+                      ),
+                      OperationButton(
+                        size: standSize,
+                        value: '/',
+                        onTap: (value) {},
+                      ),
+                      OperationButton(
+                        size: standSize,
+                        value: '*',
+                        onTap: (value) {},
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: aboveNumbersGap),
+                  Wrap(
+                    spacing: horizontalGap,
+                    children: [
+                      NumberButton(
+                        size: standSize,
+                        value: '7',
+                        onTap: (value) {},
+                      ),
+                      NumberButton(
+                        size: standSize,
+                        value: '8',
+                        onTap: (value) {},
+                      ),
+                      NumberButton(
+                        size: standSize,
+                        value: '9',
+                        onTap: (value) {},
+                      ),
+                      OperationButton(
+                        size: standSize,
+                        value: '-',
+                        onTap: (value) {},
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: horizontalGap),
+                  Wrap(
+                    spacing: horizontalGap,
+                    children: [
+                      NumberButton(
+                        size: standSize,
+                        value: '4',
+                        onTap: (value) {},
+                      ),
+                      NumberButton(
+                        size: standSize,
+                        value: '5',
+                        onTap: (value) {},
+                      ),
+                      NumberButton(
+                        size: standSize,
+                        value: '6',
+                        onTap: (value) {},
+                      ),
+                      SizedBox.fromSize(size: standSize),
+                    ],
+                  ),
+                  SizedBox(height: horizontalGap),
+                  Wrap(
+                    spacing: horizontalGap,
+                    children: [
+                      NumberButton(
+                        size: standSize,
+                        value: '1',
+                        onTap: (value) {},
+                      ),
+                      NumberButton(
+                        size: standSize,
+                        value: '2',
+                        onTap: (value) {},
+                      ),
+                      NumberButton(
+                        size: standSize,
+                        value: '3',
+                        onTap: (value) {},
+                      ),
+                      SizedBox.fromSize(size: standSize),
+                    ],
+                  ),
+                  SizedBox(height: belowNumbersGap),
+                  Wrap(
+                    spacing: horizontalGap,
+                    children: [
+                      NumberButton(
+                        size: Size(zeroButtonWidth, finalButtonHeight),
+                        value: '0',
+                        onTap: (value) {},
+                      ),
+                      NumberButton(
+                        size: standSize,
+                        value: '.',
+                        onTap: (value) {},
+                      ),
+                      SizedBox.fromSize(size: standSize),
+                    ],
+                  ),
+                ],
               ),
-            ),
-            Positioned(
-              right: 0,
-              bottom: plusButtonBottomOffset,
-              child: OperationButton(
-                value: '=',
-                onTap: (value) {},
-                size: Size(finalButtonHeight, plusButtonHeight),
-                backgroundGradient: tempTheme.gradients.equalsButton,
+              Positioned(
+                right: 0,
+                top: plusButtonTopOffset,
+                child: OperationButton(
+                  value: '+',
+                  onTap: (value) {},
+                  size: Size(finalButtonHeight, plusButtonHeight),
+                ),
               ),
-            ),
-          ],
+              Positioned(
+                right: 0,
+                bottom: plusButtonBottomOffset,
+                child: OperationButton(
+                  value: '=',
+                  onTap: (value) {},
+                  size: Size(finalButtonHeight, plusButtonHeight),
+                  backgroundGradient: tempTheme.gradients.equalsButton,
+                ),
+              ),
+            ],
+          ),
         );
       },
     );
