@@ -8,30 +8,17 @@ class InputParser {
     int index = -1;
     BaseOperation? operation;
     for (int i = 0; i < input.length; ++i) {
-      if (input[i] == "+") {
+      final BaseOperation? current = parseOperation(input[i]);
+      if (current != null) {
         index = i;
-        operation = AddOperation();
-        break;
-      } else if (input[i] == "-") {
-        index = i;
-        operation = SubOperation();
-        break;
-      } else if (input[i] == "*") {
-        index = i;
-        operation = MulOperation();
-        break;
-      } else if (input[i] == "/") {
-        index = i;
-        operation = DivOperation();
-        break;
       }
     }
 
-    if (index <= 0 || operation == null) {
+    if (index <= 0) {
       throw CalculatorException(text: "index > 0 && operation !=null");
     }
 
-    final List<String> parts = input.split(operation.symbol);
+    final List<String> parts = input.split(operation!.symbol);
     if (parts.length != 2) {
       throw CalculatorException(text: "parts.length != 2");
     }
@@ -44,5 +31,57 @@ class InputParser {
       left: left,
       right: right,
     );
+  }
+
+  BaseOperation? parseOperation(String operation) {
+    final BaseOperation? parsedValue = switch (operation) {
+      '+' => AddOperation(),
+      '-' => SubOperation(),
+      '*' => MulOperation(),
+      '/' => DivOperation(),
+      '%' => ModOperation(),
+      _ => null,
+    };
+
+    return parsedValue;
+  }
+
+  List<String> parseLine(String input) {
+    final operationsRegExp = RegExp(r'[+\-*/%]');
+    List<String> finalValues = [];
+    String tempNumber = '';
+
+    if (input.isNotEmpty) {
+      if (input[0] == '*' || input[0] == '/') {
+        throw CalculatorException(text: 'Line cannot start with * or /');
+      }
+    }
+
+    for (int i = 0; i < input.length; ++i) {
+      final char = input[i];
+      if (operationsRegExp.hasMatch(char)) {
+        finalValues.add(tempNumber);
+        tempNumber = '';
+        finalValues.add(char);
+      } else {
+        tempNumber = '$tempNumber$char';
+        if (i == input.length - 1) {
+          finalValues.add(tempNumber);
+        }
+      }
+    }
+    return finalValues;
+  }
+
+  bool canParseLine(String line) {
+    if (line.isNotEmpty) {
+      if (line[0] == '*' || line[0] == '/') {
+        return false;
+      }
+
+      return true;
+    } else {
+      return false;
+    }
   }
 }
