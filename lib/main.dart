@@ -10,7 +10,7 @@ void main() async {
     DeviceOrientation.portraitUp,
   ]);
   // runApp(const CalculatorApp());
-  String input = '12+3.4/5-9-8*2';
+  String input = '-12+3.4/-5-9-8*2-13%-6';
   print(InputParser().canParseLine(input));
   print(InputParser().parseLine(input));
 }

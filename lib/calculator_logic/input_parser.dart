@@ -47,9 +47,8 @@ class InputParser {
   }
 
   List<String> parseLine(String input) {
-    final operationsRegExp = RegExp(r'[+\-*/%]');
-    List<String> finalValues = [];
-    String tempNumber = '';
+    final unorderedOperations = RegExp(r'[*/%]');
+    final orderedOperations = RegExp(r'[+\-]');
 
     if (input.isNotEmpty) {
       if (input[0] == '*' || input[0] == '/') {
@@ -57,20 +56,49 @@ class InputParser {
       }
     }
 
+    List<String> splitInput = [];
+    String tempNumber = '';
     for (int i = 0; i < input.length; ++i) {
       final char = input[i];
-      if (operationsRegExp.hasMatch(char)) {
-        finalValues.add(tempNumber);
+      if (orderedOperations.hasMatch(char)) {
+        if (i != 0 && tempNumber.isNotEmpty) {
+          splitInput.add(tempNumber);
+        }
+        if (char == '-') {
+          tempNumber = '-';
+        } else {
+          tempNumber = '';
+        }
+      } else if (unorderedOperations.hasMatch(char)) {
+        splitInput.add(tempNumber);
+        splitInput.add(char);
         tempNumber = '';
-        finalValues.add(char);
       } else {
         tempNumber = '$tempNumber$char';
-        if (i == input.length - 1) {
-          finalValues.add(tempNumber);
+      }
+    }
+    if (tempNumber.isNotEmpty) {
+      splitInput.add(tempNumber);
+    }
+
+    final List<ExpressionDto> expressionList = [];
+    for (int i = 0; i < splitInput.length; ++i) {
+      final String current = splitInput[i];
+      if (unorderedOperations.hasMatch(current)) {
+        if (i + 1 < splitInput.length) {
+          expressionList.add(
+            ExpressionDto(
+              left: double.tryParse(splitInput[i - 1]) ?? .0,
+              right: double.tryParse(splitInput[i + 1]) ?? .0,
+              operation: parseOperation(current)!,
+            ),
+          );
         }
       }
     }
-    return finalValues;
+    
+
+    return splitInput;
   }
 
   bool canParseLine(String line) {
