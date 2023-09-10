@@ -48,7 +48,10 @@ class CalculatorScreen extends StatelessWidget {
                     ),
                   ),
                   const Expanded(
-                    child: CalculatorBody(),
+                    child: AspectRatio(
+                      aspectRatio: 4 / 3,
+                      child: CalculatorBody(),
+                    ),
                   ),
                 ],
               ),
