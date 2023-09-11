@@ -19,7 +19,7 @@ class InputParser {
 
   ExpressionDto parseLine(String input) {
     final unorderedOperations = RegExp(r'[*/%]');
-    final orderedOperations = RegExp(r'[+\-]');
+    // final orderedOperations = RegExp(r'[+\-]');
     final allOperations = RegExp(r'[+\-*/%]');
 
     // Check if can parse
