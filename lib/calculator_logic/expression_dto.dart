@@ -1,13 +1,16 @@
 import 'package:calculator_app/core/base_operation.dart';
 
 class ExpressionDto {
-  final double left;
-  final double right;
-  final BaseOperation operation;
+  final List<double> values;
+  final List<BaseOperation> operations;
 
   ExpressionDto({
-    required this.left,
-    required this.right,
-    required this.operation,
-  });
+    required this.values,
+    required this.operations,
+  }) : assert(values.length - 1 == operations.length,
+            'values.length-1!=operation.length');
+
+  @override
+  String toString() =>
+      'ExpressionDto(values: $values, operations: $operations)';
 }

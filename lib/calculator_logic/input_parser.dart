@@ -4,112 +4,65 @@ import 'package:calculator_app/calculator_logic/expression_dto.dart';
 import 'package:calculator_app/calculator_logic/operations/operations.dart';
 
 class InputParser {
-  ExpressionDto parse(String input) {
-    int index = -1;
-    BaseOperation? operation;
-    for (int i = 0; i < input.length; ++i) {
-      final BaseOperation? current = parseOperation(input[i]);
-      if (current != null) {
-        index = i;
-      }
-    }
-
-    if (index <= 0) {
-      throw CalculatorException(text: "index > 0 && operation !=null");
-    }
-
-    final List<String> parts = input.split(operation!.symbol);
-    if (parts.length != 2) {
-      throw CalculatorException(text: "parts.length != 2");
-    }
-
-    final double left = double.tryParse(parts[0]) ?? 0.0;
-    final double right = double.tryParse(parts[1]) ?? 0.0;
-
-    return ExpressionDto(
-      operation: operation,
-      left: left,
-      right: right,
-    );
-  }
-
-  BaseOperation? parseOperation(String operation) {
-    final BaseOperation? parsedValue = switch (operation) {
+  BaseOperation parseOperation(String operation) {
+    final BaseOperation parsedValue = switch (operation) {
       '+' => AddOperation(),
       '-' => SubOperation(),
       '*' => MulOperation(),
       '/' => DivOperation(),
       '%' => ModOperation(),
-      _ => null,
+      _ => throw CalculatorException(text: 'No such operation'),
     };
 
     return parsedValue;
   }
 
-  List<String> parseLine(String input) {
+  ExpressionDto parseLine(String input) {
     final unorderedOperations = RegExp(r'[*/%]');
     final orderedOperations = RegExp(r'[+\-]');
+    final allOperations = RegExp(r'[+\-*/%]');
 
+    // Check if can parse
     if (input.isNotEmpty) {
-      if (input[0] == '*' || input[0] == '/') {
-        throw CalculatorException(text: 'Line cannot start with * or /');
+      if (unorderedOperations.hasMatch(input[0])) {
+        throw CalculatorException(text: 'Line cannot start with *, /, +, -, %');
+      } else if (allOperations.hasMatch(input[input.length - 1])) {
+        throw CalculatorException(text: 'Line cannot end with *, /, +, -, %');
       }
+    } else {
+      throw CalculatorException(text: 'Line is empty');
     }
 
-    List<String> splitInput = [];
+    String tamperedInput = input;
+    final List<double> splitNumbers = [];
+    final List<BaseOperation> splitOperations = [];
     String tempNumber = '';
-    for (int i = 0; i < input.length; ++i) {
-      final char = input[i];
-      if (orderedOperations.hasMatch(char)) {
-        if (i != 0 && tempNumber.isNotEmpty) {
-          splitInput.add(tempNumber);
-        }
-        if (char == '-') {
-          tempNumber = '-';
-        } else {
+    if (input[0] == '-') {
+      splitNumbers.add(-1);
+      splitOperations.add(MulOperation());
+      tamperedInput = tamperedInput.substring(1);
+    }
+
+    for (int i = 0; i < tamperedInput.length; ++i) {
+      final char = tamperedInput[i];
+      if (allOperations.hasMatch(char)) {
+        if (tempNumber.isNotEmpty) {
+          splitNumbers.add(double.parse(tempNumber));
           tempNumber = '';
         }
-      } else if (unorderedOperations.hasMatch(char)) {
-        splitInput.add(tempNumber);
-        splitInput.add(char);
-        tempNumber = '';
+        splitOperations.add(parseOperation(char));
       } else {
         tempNumber = '$tempNumber$char';
       }
     }
+
     if (tempNumber.isNotEmpty) {
-      splitInput.add(tempNumber);
+      splitNumbers.add(double.parse(tempNumber));
     }
 
-    final List<ExpressionDto> expressionList = [];
-    for (int i = 0; i < splitInput.length; ++i) {
-      final String current = splitInput[i];
-      if (unorderedOperations.hasMatch(current)) {
-        if (i + 1 < splitInput.length) {
-          expressionList.add(
-            ExpressionDto(
-              left: double.tryParse(splitInput[i - 1]) ?? .0,
-              right: double.tryParse(splitInput[i + 1]) ?? .0,
-              operation: parseOperation(current)!,
-            ),
-          );
-        }
-      }
-    }
-    
-
-    return splitInput;
-  }
-
-  bool canParseLine(String line) {
-    if (line.isNotEmpty) {
-      if (line[0] == '*' || line[0] == '/') {
-        return false;
-      }
-
-      return true;
-    } else {
-      return false;
-    }
+    return ExpressionDto(
+      values: splitNumbers,
+      operations: splitOperations,
+    );
   }
 }
