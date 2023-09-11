@@ -13,6 +13,7 @@ class ExpressionHandler {
     List<double> tamperedValues = dto.values;
     List<BaseOperation> tamperedOperations = dto.operations;
 
+    // Perform first priority operations
     for (int i = 0; i < tamperedOperations.length; ++i) {
       final BaseOperation current = tamperedOperations[i];
 
@@ -29,10 +30,9 @@ class ExpressionHandler {
         tamperedValues.insert(i, result);
         --i;
       }
-    } //'12+10/5*3-9-8*2-13%6'
-    print(tamperedOperations);
+    }
 
-    print(tamperedValues);
+    // Perform second priority operations
     for (int i = 0; i < tamperedOperations.length; ++i) {
       final BaseOperation current = tamperedOperations[i];
 
@@ -49,8 +49,6 @@ class ExpressionHandler {
       --i;
     }
 
-    print(tamperedOperations);
-    print(tamperedValues);
     return tamperedValues.first;
   }
 }
