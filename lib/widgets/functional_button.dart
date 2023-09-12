@@ -9,16 +9,19 @@ class FunctionalButton extends StatelessWidget {
     required this.size,
     required this.onTap,
     required this.child,
+    this.onLongTap,
   });
   final Size size;
   final Widget child;
   final void Function() onTap;
+  final void Function()? onLongTap;
   @override
   Widget build(BuildContext context) {
     final tempTheme = AppThemeData.light();
     return Bounceable(
       child: GestureDetector(
         onTap: onTap,
+        onLongPress: onLongTap,
         child: Container(
           height: size.height,
           width: size.width,
