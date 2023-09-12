@@ -1,31 +1,50 @@
 import 'package:calculator_app/theme/app_theme_data.dart';
 import 'package:flutter/material.dart';
 
-class CalculatorLine extends StatelessWidget {
-  const CalculatorLine({
+class CalculationLine extends StatelessWidget {
+  const CalculationLine({
     super.key,
     required this.line,
-    required this.highlightSymbols,
   });
   final String line;
-  final List<String> highlightSymbols;
+
+  static const _highlightSymbols = [
+    '/',
+    '+',
+    '-',
+    '%',
+    '*',
+  ];
 
   @override
   Widget build(BuildContext context) {
     final tempTheme = AppThemeData.light();
-    return Text.rich(
-      TextSpan(
-        children: List.generate(
-          line.length,
-          (index) => TextSpan(
-            text: line[index],
-            style: tempTheme.textStyles.calculation.copyWith(
-              color: !highlightSymbols.contains(line[index])
-                  ? tempTheme.colors.calculation
-                  : tempTheme.colors.calculationOperation,
-            ),
-          ),
+
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Text.rich(
+        TextSpan(
+          children: line.isNotEmpty
+              ? List.generate(
+                  line.length,
+                  (index) => TextSpan(
+                    text: line[index],
+                    style: tempTheme.textStyles.calculation.copyWith(
+                      color: !_highlightSymbols.contains(line[index])
+                          ? tempTheme.colors.calculation
+                          : tempTheme.colors.calculationOperation,
+                    ),
+                  ),
+                )
+              : [
+                  TextSpan(
+                    text: ' ',
+                    style: tempTheme.textStyles.calculation
+                        .copyWith(color: tempTheme.colors.calculation),
+                  ),
+                ],
         ),
+        maxLines: 1,
       ),
     );
   }

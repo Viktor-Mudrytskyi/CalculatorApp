@@ -5,7 +5,15 @@ import 'package:calculator_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class CalculatorBody extends StatelessWidget {
-  const CalculatorBody({super.key});
+  const CalculatorBody({
+    super.key,
+    required this.onTileTap,
+    required this.onClearTap,
+    required this.onClearLongTap,
+  });
+  final void Function(String value) onTileTap;
+  final void Function() onClearTap;
+  final void Function() onClearLongTap;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +56,8 @@ class CalculatorBody extends StatelessWidget {
                     children: [
                       FunctionalButton(
                         size: standSize,
-                        onTap: () {},
+                        onTap: onClearTap,
+                        onLongTap: onClearLongTap,
                         child: Icon(
                           Icons.backspace_outlined,
                           size: 27,
@@ -58,17 +67,17 @@ class CalculatorBody extends StatelessWidget {
                       OperationButton(
                         size: standSize,
                         value: '%',
-                        onTap: (value) {},
+                        onTap: onTileTap,
                       ),
                       OperationButton(
                         size: standSize,
                         value: '/',
-                        onTap: (value) {},
+                        onTap: onTileTap,
                       ),
                       OperationButton(
                         size: standSize,
                         value: '*',
-                        onTap: (value) {},
+                        onTap: onTileTap,
                       ),
                     ],
                   ),
@@ -79,22 +88,22 @@ class CalculatorBody extends StatelessWidget {
                       NumberButton(
                         size: standSize,
                         value: '7',
-                        onTap: (value) {},
+                        onTap: onTileTap,
                       ),
                       NumberButton(
                         size: standSize,
                         value: '8',
-                        onTap: (value) {},
+                        onTap: onTileTap,
                       ),
                       NumberButton(
                         size: standSize,
                         value: '9',
-                        onTap: (value) {},
+                        onTap: onTileTap,
                       ),
                       OperationButton(
                         size: standSize,
                         value: '-',
-                        onTap: (value) {},
+                        onTap: onTileTap,
                       ),
                     ],
                   ),
@@ -105,17 +114,17 @@ class CalculatorBody extends StatelessWidget {
                       NumberButton(
                         size: standSize,
                         value: '4',
-                        onTap: (value) {},
+                        onTap: onTileTap,
                       ),
                       NumberButton(
                         size: standSize,
                         value: '5',
-                        onTap: (value) {},
+                        onTap: onTileTap,
                       ),
                       NumberButton(
                         size: standSize,
                         value: '6',
-                        onTap: (value) {},
+                        onTap: onTileTap,
                       ),
                       SizedBox.fromSize(size: standSize),
                     ],
@@ -127,17 +136,17 @@ class CalculatorBody extends StatelessWidget {
                       NumberButton(
                         size: standSize,
                         value: '1',
-                        onTap: (value) {},
+                        onTap: onTileTap,
                       ),
                       NumberButton(
                         size: standSize,
                         value: '2',
-                        onTap: (value) {},
+                        onTap: onTileTap,
                       ),
                       NumberButton(
                         size: standSize,
                         value: '3',
-                        onTap: (value) {},
+                        onTap: onTileTap,
                       ),
                       SizedBox.fromSize(size: standSize),
                     ],
@@ -149,12 +158,12 @@ class CalculatorBody extends StatelessWidget {
                       NumberButton(
                         size: Size(zeroButtonWidth, finalButtonHeight),
                         value: '0',
-                        onTap: (value) {},
+                        onTap: onTileTap,
                       ),
                       NumberButton(
                         size: standSize,
                         value: '.',
-                        onTap: (value) {},
+                        onTap: onTileTap,
                       ),
                       SizedBox.fromSize(size: standSize),
                     ],
@@ -166,7 +175,7 @@ class CalculatorBody extends StatelessWidget {
                 top: plusButtonTopOffset,
                 child: OperationButton(
                   value: '+',
-                  onTap: (value) {},
+                  onTap: onTileTap,
                   size: Size(finalButtonHeight, plusButtonHeight),
                 ),
               ),
@@ -175,7 +184,7 @@ class CalculatorBody extends StatelessWidget {
                 bottom: plusButtonBottomOffset,
                 child: OperationButton(
                   value: '=',
-                  onTap: (value) {},
+                  onTap: (val) {},
                   size: Size(finalButtonHeight, plusButtonHeight),
                   backgroundGradient: tempTheme.gradients.equalsButton,
                 ),
