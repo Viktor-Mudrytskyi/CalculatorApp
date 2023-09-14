@@ -14,24 +14,26 @@ class InputParser {
       '%' => ModOperation(),
       _ => throw CalculatorException(text: 'No such operation'),
     };
-
     return parsedValue;
   }
 
   ExpressionDto parseLine(String input) {
     final unorderedOperations = RegExp(r'[*/%]');
-    // final orderedOperations = RegExp(r'[+\-]');
     final allOperations = RegExp(r'[+\-*/%]');
 
     String tamperedInput = input;
 
-    // Check if can parse
+    // Check if can parse and formats string to parsable format
     if (input.isNotEmpty) {
       if (unorderedOperations.hasMatch(input.first) || input.first == '+') {
         throw CalculatorException(text: 'Line cannot start with *, /, +, %');
       } else if (allOperations.hasMatch(input.last)) {
-        tamperedInput = tamperedInput.substring(0, tamperedInput.lastIndex);
-        // throw CalculatorException(text: 'Line cannot end with *, /, +, -, %');
+        if (input.length >= 2 && allOperations.hasMatch(input.oneBeforeLast)) {
+          tamperedInput =
+              tamperedInput.substring(0, tamperedInput.lastIndex - 1);
+        } else {
+          tamperedInput = tamperedInput.substring(0, tamperedInput.lastIndex);
+        }
       }
     } else {
       throw CalculatorException(text: 'Line is empty');
@@ -46,8 +48,6 @@ class InputParser {
       if (allOperations.hasMatch(char)) {
         if (char == SubOperation().symbol &&
             (i == 0 || allOperations.hasMatch(tamperedInput[i - 1]))) {
-          // splitNumbers.add(-1);
-          // splitOperations.add(MulOperation());
           tempNumber = '-';
           continue;
         }

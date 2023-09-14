@@ -22,6 +22,7 @@ class CalculationLine extends StatelessWidget {
 
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
+      reverse: true,
       child: Text.rich(
         TextSpan(
           children: line.isNotEmpty
