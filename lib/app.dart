@@ -6,9 +6,21 @@ class CalculatorApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: CalculatorScreen(),
+      home: const CalculatorScreen(),
+      builder: (context, child) {
+        return Directionality(
+          textDirection: TextDirection.ltr,
+          child: MediaQuery(
+            data: MediaQuery.of(context).copyWith(
+              textScaleFactor: 1,
+              boldText: false,
+            ),
+            child: child!,
+          ),
+        );
+      },
     );
   }
 }
