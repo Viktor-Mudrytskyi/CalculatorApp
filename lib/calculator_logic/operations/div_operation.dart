@@ -5,9 +5,9 @@ class DivOperation extends BaseOperation {
 
   @override
   double calc(double left, double right) {
-    if (right == 0.0) {
-      throw CalculatorException(text: 'Cant divide by zero');
-    }
+    // if (right == 0.0) {
+    //   throw CalculatorException(text: 'Cant divide by zero');
+    // }
     return left / right;
   }
 }

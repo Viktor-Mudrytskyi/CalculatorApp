@@ -46,6 +46,12 @@ class CalculatorProvider extends ChangeNotifier {
       }
     }
 
+    if (calculationLine.isNotEmpty &&
+        calculationLine.last == '.' &&
+        character == '.') {
+      return;
+    }
+
     // Checks if last symbol is operation and new symbol is operation
     if (calculationLine.isNotEmpty &&
         _allOperations.contains(calculationLine.last) &&
@@ -93,7 +99,7 @@ class CalculatorProvider extends ChangeNotifier {
       final ExpressionDto dto = _inputParser.parseLine(calculationLine);
       final double finalValue = _expressionHandler.calculateExpression(dto);
       result = finalValue.toString();
-    } catch (_) {
+    } catch (e) {
       result = '';
     }
   }

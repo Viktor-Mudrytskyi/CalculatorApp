@@ -27,15 +27,15 @@ class _NumberButtonState extends State<Bounceable>
     _boubceController.forward();
   }
 
-  void _handlePointerMove(PointerMoveEvent event) {
-    final localOffset = event.localPosition;
-    if (localOffset.dx > childsSize.width ||
-        localOffset.dy > childsSize.height ||
-        localOffset.dx < 0 ||
-        localOffset.dy < 0) {
-      _animateReverse();
-    }
-  }
+  // void _handlePointerMove(PointerMoveEvent event) {
+  //   final localOffset = event.localPosition;
+  //   if (localOffset.dx > childsSize.width ||
+  //       localOffset.dy > childsSize.height ||
+  //       localOffset.dx < 0 ||
+  //       localOffset.dy < 0) {
+  //     _animateReverse();
+  //   }
+  // }
 
   Size _getChildsSize() {
     final renderBox = context.findRenderObject() as RenderBox;
@@ -82,7 +82,7 @@ class _NumberButtonState extends State<Bounceable>
         onPointerUp: (event) {
           _animateReverse();
         },
-        onPointerMove: _handlePointerMove,
+        // onPointerMove: _handlePointerMove,
         child: widget.child,
       ),
     );
